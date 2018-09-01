@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
-import { gray } from '../utils/colors';
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  FlatList,
+  TouchableOpacity
+} from 'react-native'
+import { gray } from '../utils/colors'
+import DeckPreview from './DeckPreview'
 
 class DeckList extends Component {
   state = {
@@ -28,10 +35,12 @@ class DeckList extends Component {
     console.log(item.cards.length)
 
     return (
-      <View style={styles.item}>
-        <Text style={{ fontSize: 20, height: 25, flexGrow: 1 }} >{item.name}</Text>
-        <Text style={{ fontSize: 16, height: 25, color: gray }}>{item.cards.length} cards</Text>
-      </View>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate(
+        'DeckDetail'
+        // { deckId: item.key}
+      )}>
+        <DeckPreview item={item} />
+      </TouchableOpacity>
     )
   }
 
@@ -54,16 +63,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexGrow: 1
-  },
-  item: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexGrow: 1,
-    padding: 50,
-    height: 120,
-    width: 380,
-    borderBottomWidth: 1
   }
 })
 

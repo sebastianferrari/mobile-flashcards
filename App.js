@@ -6,8 +6,8 @@ import DeckList from './components/DeckList'
 import Quiz from './components/Quiz'
 import NewDeck from './components/NewDeck'
 import { Constants } from 'expo'
-import { white, green } from './utils/colors'
-import { createBottomTabNavigator } from 'react-navigation'
+import { white, green, purple } from './utils/colors'
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
 function FlashCardsStatusBar ({ backgroundColor, ...props }) {
@@ -53,12 +53,27 @@ const Tabs = createBottomTabNavigator({
   }
 })
 
+const MainNavigator = createStackNavigator({
+  Home: {
+    screen: Tabs
+  },
+  DeckDetail: {
+    screen: Deck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: green
+      }
+    }
+  }
+})
+
 export default class App extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
         <FlashCardsStatusBar backgroundColor={green} barStyle='light-content' />
-        <Tabs />
+        <MainNavigator />
       </View>
     );
   }
