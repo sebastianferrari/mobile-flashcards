@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native
 import { gray, white, black } from '../utils/colors';
 import { FontAwesome } from '@expo/vector-icons'
 
-export default function Deck() {
+export default function Deck(props) {
   return (
     <View style={styles.container}>
       {/* <View style={styles.header}>
@@ -16,7 +16,7 @@ export default function Deck() {
         <Text style={{ color: white, fontSize: 20 }}>udacicards</Text>
       </View> */}
       <View style={styles.deckSection}>
-        <Text style={{ fontSize: 40 }}>udacicards</Text>
+        <Text style={{ fontSize: 40 }}>Deck ID - {props.navigation.state.params.deckId}</Text>
         <Text style={{ fontSize: 25, color: gray }}>3 cards</Text>
       </View>
       <View style={styles.buttonsView}>
