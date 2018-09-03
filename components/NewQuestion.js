@@ -25,7 +25,9 @@ class NewQuestion extends Component {
         />
 
         <TouchableOpacity
-          onPress={() => console.log('Submit pressed!')}
+          onPress={() => this.props.navigation.navigate(
+            'DeckDetail'
+          )}
           style={styles.submitBtn}
         >
           <Text style={{ color: white, fontSize: 18 }}>Submit</Text>

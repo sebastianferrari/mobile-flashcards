@@ -19,14 +19,14 @@ function FlashCardsStatusBar ({ backgroundColor, ...props }) {
 }
 
 const Tabs = createBottomTabNavigator({
-  History: {
+  Decks: {
     screen: DeckList,
     navigationOptions: {
       tabBarLabel: 'Decks',
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
     }
   },
-  AddEntry: {
+  AddDeck: {
     screen: NewDeck,
     navigationOptions: {
       tabBarLabel: 'New Deck',
@@ -59,6 +59,24 @@ const MainNavigator = createStackNavigator({
   },
   DeckDetail: {
     screen: Deck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: green
+      }
+    }
+  },
+  NewCard: {
+    screen: NewQuestion,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: green
+      }
+    }
+  },
+  Quiz: {
+    screen: Quiz,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

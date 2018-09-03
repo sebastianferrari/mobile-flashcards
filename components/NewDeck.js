@@ -1,29 +1,34 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import { black, white } from '../utils/colors'
 
-export default function NewDeck() {
-  return (
-    <View style={styles.container}>
-      <Text
-        style={{
-          fontSize: 50,
-          textAlign: 'center'
-        }}
-      >What is the title of your new deck?</Text>
+class NewDeck extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text
+          style={{
+            fontSize: 50,
+            textAlign: 'center'
+          }}
+        >What is the title of your new deck?</Text>
 
-      <TextInput
-        style={styles.textInput}
-        placeholder='Deck Title'
-      />
+        <TextInput
+          style={styles.textInput}
+          placeholder='Deck Title'
+        />
 
-      <TouchableOpacity
-        style={styles.submitBtn}
-      >
-        <Text style={{ color: white, fontSize: 18 }}>Submit</Text>
-      </TouchableOpacity>
-    </View>
-  )
+        <TouchableOpacity
+          style={styles.submitBtn}
+          onPress={() => this.props.navigation.navigate(
+            'Decks'
+          )}
+        >
+          <Text style={{ color: white, fontSize: 18 }}>Submit</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -51,3 +56,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 })
+
+export default NewDeck

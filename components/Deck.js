@@ -1,12 +1,20 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { gray, white, black } from '../utils/colors';
 import { FontAwesome } from '@expo/vector-icons'
 
-export default function Deck(props) {
-  return (
-    <View style={styles.container}>
-      {/* <View style={styles.header}>
+class Deck extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const { deckId } = navigation.state.params
+
+    return {
+      title: `Deck ID - ${deckId}`
+    }
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        {/* <View style={styles.header}>
         <FontAwesome 
           name='arrow-left' 
           color={ white } 
@@ -15,26 +23,31 @@ export default function Deck(props) {
         />
         <Text style={{ color: white, fontSize: 20 }}>udacicards</Text>
       </View> */}
-      <View style={styles.deckSection}>
-        <Text style={{ fontSize: 40 }}>Deck ID - {props.navigation.state.params.deckId}</Text>
-        <Text style={{ fontSize: 25, color: gray }}>3 cards</Text>
+        <View style={styles.deckSection}>
+          <Text style={{ fontSize: 40 }}>Deck ID - {this.props.navigation.state.params.deckId}</Text>
+          <Text style={{ fontSize: 25, color: gray }}>3 cards</Text>
+        </View>
+        <View style={styles.buttonsView}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate(
+              'NewCard'
+            )}
+            style={styles.addCardBtn}
+          >
+            <Text style={{ fontSize: 18 }}>Add Card</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate(
+              'Quiz'
+            )}
+            style={styles.startQuizBtn}
+          >
+            <Text style={{ color: white, fontSize: 18 }}>Start Quiz</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.buttonsView}>
-        <TouchableOpacity
-          onPress={() => console.log('Add Card pressed!')}
-          style={styles.addCardBtn}
-        >
-          <Text style={{ fontSize: 18 }}>Add Card</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => console.log('Start Quiz pressed!')}
-          style={styles.startQuizBtn}
-        >
-          <Text style={{ color: white, fontSize: 18 }}>Start Quiz</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  )
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -81,3 +94,5 @@ const styles = StyleSheet.create({
     marginBottom: 30
   }
 })
+
+export default Deck
