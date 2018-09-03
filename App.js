@@ -6,7 +6,7 @@ import DeckList from './components/DeckList'
 import Quiz from './components/Quiz'
 import NewDeck from './components/NewDeck'
 import { Constants } from 'expo'
-import { white, green, purple } from './utils/colors'
+import { white, purple, darkPrimaryColor } from './utils/colors'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 
@@ -38,10 +38,10 @@ const Tabs = createBottomTabNavigator({
     header: null
   },
   tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? green : white,
+    activeTintColor: Platform.OS === 'ios' ? darkPrimaryColor : white,
     style: {
       height: 56,
-      backgroundColor: Platform.OS === 'ios' ? white : green,
+      backgroundColor: Platform.OS === 'ios' ? white : darkPrimaryColor,
       shadowColor: 'rgba(0, 0, 0, 0.24)',
       shadowOffset: {
         width: 0,
@@ -62,7 +62,7 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: green
+        backgroundColor: darkPrimaryColor
       }
     }
   },
@@ -71,7 +71,7 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: green
+        backgroundColor: darkPrimaryColor
       }
     }
   },
@@ -80,7 +80,7 @@ const MainNavigator = createStackNavigator({
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {
-        backgroundColor: green
+        backgroundColor: darkPrimaryColor
       }
     }
   }
@@ -90,7 +90,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
-        <FlashCardsStatusBar backgroundColor={green} barStyle='light-content' />
+        <FlashCardsStatusBar backgroundColor={darkPrimaryColor} barStyle='light-content' />
         <MainNavigator />
       </View>
     );
