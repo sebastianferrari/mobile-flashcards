@@ -9,6 +9,9 @@ import { Constants } from 'expo'
 import { white, purple, darkPrimaryColor } from './utils/colors'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import reducer from './reducers'
 
 function FlashCardsStatusBar ({ backgroundColor, ...props }) {
   return (
@@ -89,10 +92,12 @@ const MainNavigator = createStackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <FlashCardsStatusBar backgroundColor={darkPrimaryColor} barStyle='light-content' />
-        <MainNavigator />
-      </View>
+      <Provider store={createStore(reducer)}>
+        <View style={{flex: 1}}>
+          <FlashCardsStatusBar backgroundColor={darkPrimaryColor} barStyle='light-content' />
+          <MainNavigator />
+        </View>
+      </Provider>
     );
   }
 }
