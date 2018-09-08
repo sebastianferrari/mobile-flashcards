@@ -20,9 +20,9 @@ class NewDeck extends Component {
 
     this.setState({ title: '' })
 
-    // this.props.navigation.navigate('DeckDetail', { deckId: this.state.title })
+    this.props.navigation.navigate('DeckDetail', { deckId: key })
 
-    saveDeckTitle({ key, NewDeck })
+    saveDeckTitle({ key, deck })
   }
 
   render() {
