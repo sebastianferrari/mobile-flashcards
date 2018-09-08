@@ -1,8 +1,30 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import { black, white } from '../utils/colors'
+import { saveDeckTitle } from '../utils/api'
+import { addDeck } from '../actions'
+import { connect } from 'react-redux'
 
 class NewDeck extends Component {
+  state = {
+    title: ''
+  }
+
+  saveDeck = () => {
+    console.log(`Saving the new deck with title: ${this.state.title}`)
+    const key = this.state.title
+    const deck = { title: key, questions: [] }
+
+    // save deck in storage and then navigate to deck detail
+    this.props.dispatch(addDeck({ [key]: deck }))
+
+    this.setState({ title: '' })
+
+    // this.props.navigation.navigate('DeckDetail', { deckId: this.state.title })
+
+    saveDeckTitle({ key, NewDeck })
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -16,13 +38,16 @@ class NewDeck extends Component {
         <TextInput
           style={styles.textInput}
           placeholder='Deck Title'
+          value={this.state.title}
+          onChangeText={(title) => this.setState({title})}
         />
 
         <TouchableOpacity
           style={styles.submitBtn}
-          onPress={() => this.props.navigation.navigate(
-            'Decks'
-          )}
+          // onPress={() => this.props.navigation.navigate(
+          //   'Decks'
+          // )}
+          onPress={this.saveDeck}
         >
           <Text style={{ color: white, fontSize: 18 }}>Submit</Text>
         </TouchableOpacity>
@@ -57,4 +82,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+export default connect()(NewDeck)

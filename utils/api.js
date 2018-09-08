@@ -14,8 +14,11 @@ export function getDeck(id) {
   return decks[id]
 }
 
-export function saveDeckTitle(title) {
-  console.log(`Saving new deck ${title}`)
+export function saveDeckTitle({ key, deck }) {
+  console.log(`Saving new deck with key/title: ${key}`)
+  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+    [key]: deck
+  }))
 }
 
 export function addCardToDeck(title, card) {
