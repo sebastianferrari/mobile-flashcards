@@ -11,6 +11,7 @@ export function getDecks() {
 }
 
 export function getDeck(id) {
+  console.log('Getting deck id: ' + id)
   return decks[id]
 }
 

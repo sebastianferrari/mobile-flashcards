@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { gray, white, black } from '../utils/colors';
 import { FontAwesome } from '@expo/vector-icons'
+import { connect } from 'react-redux'
 
 class Deck extends Component {
+  state = {
+    deck: {}
+  }
+
   static navigationOptions = ({ navigation }) => {
     const { deckId } = navigation.state.params
 
@@ -11,6 +16,11 @@ class Deck extends Component {
       title: `Deck ID - ${deckId}`
     }
   }
+
+  componentDidMount() {
+    console.log('THIS PROPS ', this.props)
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -95,4 +105,13 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Deck
+function mapStateToProps(state, { navigation }) {
+  const { deckId } = navigation.state.params
+  console.log('mapStateToProps --> deckId --> ', deckId)
+  return {
+    deckId,
+    deck: state[deckId]
+  }
+}
+
+export default connect(mapStateToProps)(Deck)

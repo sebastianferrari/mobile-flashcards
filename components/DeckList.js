@@ -50,13 +50,13 @@ class DeckList extends Component {
   }
 
   renderItem = ({ item }) => {
-    // console.log('Render Item section', item)
+    console.log('Render Item section', item)
     // console.log(item.cards.length)
 
     return (
       <TouchableOpacity onPress={() => this.props.navigation.navigate(
         'DeckDetail',
-        { deckId: item.key }
+        { deckId: item.title }
       )}>
         <DeckPreview item={item} key={item.title}/>
       </TouchableOpacity>
