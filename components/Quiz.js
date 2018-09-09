@@ -6,7 +6,8 @@ class Quiz extends Component {
   state = {
     questions: [],
     currentIndex: 0,
-    showingQuestion: true
+    showingQuestion: true,
+    correctAnswersQty: 0
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -74,6 +75,41 @@ class Quiz extends Component {
     }
   }
 
+  checkIfLatestDeckQuestion(index) {
+    if (index >= this.state.questions.length) {
+      return true
+    }
+    return false
+  }
+
+  onCorrect() {
+    const newQty = this.state.correctAnswersQty + 1
+    const newIndex = this.state.currentIndex + 1
+
+    if (this.checkIfLatestDeckQuestion(newIndex)) {
+      // show result before navigate back
+
+      this.props.navigation.goBack()
+    } else {
+      this.setState({
+        correctAnswersQty: newQty,
+        currentIndex: newIndex
+      })
+    }
+  }
+
+  onIncorrect() {
+    const newIndex = this.state.currentIndex + 1
+
+    if (this.checkIfLatestDeckQuestion(newIndex)) {
+      // show result before navigate back
+      
+      this.props.navigation.goBack()
+    } else {
+      this.setState({ currentIndex: newIndex })
+    }
+  }
+
   render() {
     // animation stuff
     const frontAnimatedStyle = {
@@ -97,14 +133,14 @@ class Quiz extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.orderSection}>
-          <Text style={{ fontSize: 20 }}>{currentIndex} / {questions.length}</Text>
+          <Text style={{ fontSize: 20 }}>{currentIndex + 1} / {questions.length}</Text>
         </View>
 
         <View style={styles.contentSection}>
-          <Animated.View 
+          <Animated.View
             style={[
-              styles.flipCard, 
-              frontAnimatedStyle, 
+              styles.flipCard,
+              frontAnimatedStyle,
               Platform.OS === 'ios' ? {} : { opacity: this.frontOpacity },
               this.state.showingQuestion ? { zIndex: 1 } : { zIndex: 0 }]}>
 
@@ -124,9 +160,9 @@ class Quiz extends Component {
           </Animated.View>
 
           <Animated.View style={[
-            styles.flipCard, 
-            styles.flipCardBack, 
-            backAnimatedStyle, 
+            styles.flipCard,
+            styles.flipCardBack,
+            backAnimatedStyle,
             Platform.OS === 'ios' ? {} : { opacity: this.backOpacity },
             !this.state.showingQuestion ? { zIndex: 1 } : { zIndex: 0 }]}>
 
@@ -149,11 +185,13 @@ class Quiz extends Component {
         <View style={styles.buttonsSection}>
           <TouchableOpacity
             style={styles.correctBtn}
+            onPress={() => this.onCorrect()}
           >
             <Text style={{ color: white, fontSize: 18 }}>Correct</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.incorrectBtn}
+            onPress={() => this.onIncorrect()}
           >
             <Text style={{ color: white, fontSize: 18 }}>Incorrect</Text>
           </TouchableOpacity>
@@ -193,14 +231,6 @@ const styles = StyleSheet.create({
   },
   buttonsSection: {
 
-  },
-  questionText: {
-    fontSize: 50,
-    textAlign: 'center'
-  },
-  answerText: {
-    fontSize: 50,
-    textAlign: 'center'
   },
   correctBtn: {
     backgroundColor: green,
