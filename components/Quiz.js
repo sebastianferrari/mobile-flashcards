@@ -5,7 +5,7 @@ import { red, green, white } from '../utils/colors'
 class Quiz extends Component {
   state = {
     questions: [],
-
+    currentIndex: 0
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -85,7 +85,7 @@ class Quiz extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.orderSection}>
-          <Text style={{ fontSize: 20 }}>X / {questions.length}</Text>
+          <Text style={{ fontSize: 20 }}>{this.state.currentIndex} / {questions.length}</Text>
         </View>
 
         <View style={styles.contentSection}>
