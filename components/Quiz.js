@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { red, green, white } from '../utils/colors'
 
-export default function Quiz() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.orderSection}>
-        <Text style={{ fontSize: 20 }}>2 / 2</Text>
-      </View>
+class Quiz extends Component {
+  static navigationOptions = ({ navigation }) => {
+    const { deckId } = navigation.state.params
 
-      {/* <View style={styles.contentSection}>
+    return {
+      title: deckId
+    }
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.orderSection}>
+          <Text style={{ fontSize: 20 }}>2 / 2</Text>
+        </View>
+
+        {/* <View style={styles.contentSection}>
         <Text style={{
           fontSize: 50,
           textAlign: 'center'
@@ -21,32 +30,35 @@ export default function Quiz() {
         </TouchableOpacity>
       </View> */}
 
-      <View style={styles.contentSection}>
-        <Text style={{
-          fontSize: 50,
-          textAlign: 'center'
-        }}>Yes!</Text>
-        <TouchableOpacity
-          style={{ marginTop: 10 }}
-        >
-          <Text style={{ fontSize: 18, color: red, fontWeight: 'bold' }}>Question</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.contentSection}>
+          <Text style={{
+            fontSize: 50,
+            textAlign: 'center'
+          }}>Yes!</Text>
+          <TouchableOpacity
+            style={{ marginTop: 10 }}
+          >
+            <Text style={{ fontSize: 18, color: red, fontWeight: 'bold' }}>Question</Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.buttonsSection}>
-        <TouchableOpacity
-          style={styles.correctBtn}
-        >
-          <Text style={{ color: white, fontSize: 18 }}>Correct</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.incorrectBtn}
-        >
-          <Text style={{ color: white, fontSize: 18 }}>Incorrect</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonsSection}>
+          <TouchableOpacity
+            style={styles.correctBtn}
+          >
+            <Text style={{ color: white, fontSize: 18 }}>Correct</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.incorrectBtn}
+          >
+            <Text style={{ color: white, fontSize: 18 }}>Incorrect</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
-  )
+    )
+  }
+
+
 }
 
 const styles = StyleSheet.create({
@@ -68,7 +80,7 @@ const styles = StyleSheet.create({
     padding: 5
   },
   buttonsSection: {
-    
+
   },
   correctBtn: {
     backgroundColor: green,
@@ -89,3 +101,5 @@ const styles = StyleSheet.create({
     marginBottom: 30
   }
 })
+
+export default Quiz

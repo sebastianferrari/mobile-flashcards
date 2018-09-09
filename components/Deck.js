@@ -64,7 +64,8 @@ class Deck extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate(
-              'Quiz'
+              'Quiz',
+              { deckId: deck.title }
             )}
             style={styles.startQuizBtn}
           >
