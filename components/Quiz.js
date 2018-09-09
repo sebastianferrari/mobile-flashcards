@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Platform, Animated } from 'react-native'
 import { red, green, white } from '../utils/colors'
 
 class Quiz extends Component {
@@ -22,43 +22,107 @@ class Quiz extends Component {
   }
 
   componentWillMount() {
-     const { questions } = this.props.navigation.state.params.deck
-   
-     this.setState({questions})
+    const { questions } = this.props.navigation.state.params.deck
+
+    this.setState({ questions })
+
+    // flip animation stuff
+    this.animatedValue = new Animated.Value(0)
+    this.value = 0
+    this.animatedValue.addListener(({ value }) => {
+      this.value = value
+    })
+    this.frontInterpolate = this.animatedValue.interpolate({
+      inputRange: [0, 180],
+      outputRange: ['0deg', '180deg']
+    })
+    this.backInterpolate = this.animatedValue.interpolate({
+      inputRange: [0, 180],
+      outputRange: ['180deg', '360deg']
+    })
+    this.frontOpacity = this.animatedValue.interpolate({
+      inputRange: [89, 90],
+      outputRange: [1, 0]
+    })
+    this.backOpacity = this.animatedValue.interpolate({
+      inputRange: [89, 90],
+      outputRange: [0, 1]
+    })
+  }
+
+  flipCard() {
+    if (this.value >= 90) {
+      Animated.spring(this.animatedValue, {
+        toValue: 0,
+        friction: 8,
+        tension: 10
+      }).start()
+    } else {
+      Animated.spring(this.animatedValue, {
+        toValue: 180,
+        friction: 8,
+        tension: 10
+      }).start()
+    }
   }
 
   render() {
+    // animation stuff
+    const frontAnimatedStyle = {
+      transform: [
+        { rotateY: this.frontInterpolate }
+      ]
+    }
+    const backAnimatedStyle = {
+      transform: [
+        { rotateY: this.backInterpolate }
+      ]
+    }
+
     const { questions } = this.state
     console.log(questions)
 
     return (
       <View style={styles.container}>
         <View style={styles.orderSection}>
-          <Text style={{ fontSize: 20 }}>2 / {questions.length}</Text>
+          <Text style={{ fontSize: 20 }}>X / {questions.length}</Text>
         </View>
 
-        {/* <View style={styles.contentSection}>
-        <Text style={{
-          fontSize: 50,
-          textAlign: 'center'
-        }}>Does React Native work with Android?</Text>
-        <TouchableOpacity
-          style={{ marginTop: 10 }}
-        >
-          <Text style={{ fontSize: 18, color: red, fontWeight: 'bold' }}>Answer</Text>
-        </TouchableOpacity>
-      </View> */}
-
         <View style={styles.contentSection}>
-          <Text style={{
-            fontSize: 50,
-            textAlign: 'center'
-          }}>Yes!</Text>
-          <TouchableOpacity
-            style={{ marginTop: 10 }}
-          >
-            <Text style={{ fontSize: 18, color: red, fontWeight: 'bold' }}>Question</Text>
-          </TouchableOpacity>
+          <Animated.View style={[
+            styles.flipCard, 
+            frontAnimatedStyle, 
+            Platform.OS === 'ios' ? {} : { opacity: this.frontOpacity }]}>
+
+            <Text style={{
+              fontSize: 50,
+              textAlign: 'center'
+            }}>Does React Native work with Android?</Text>
+            <TouchableOpacity
+              style={{ marginTop: 10 }}
+              onPress={() => this.flipCard()}
+            >
+              <Text style={{ fontSize: 18, color: red, fontWeight: 'bold' }}>Answer</Text>
+            </TouchableOpacity>
+          </Animated.View>
+
+          <Animated.View style={[
+            styles.flipCard, 
+            styles.flipCardBack, 
+            backAnimatedStyle, 
+            Platform.OS === 'ios' ? {} : { opacity: this.backOpacity }]}>
+
+            <Text style={{
+              fontSize: 50,
+              textAlign: 'center'
+            }}>Yes!</Text>
+            <TouchableOpacity
+              style={{ marginTop: 10 }}
+              onPress={() => this.flipCard()}
+            >
+              <Text style={{ fontSize: 18, color: red, fontWeight: 'bold' }}>Question</Text>
+            </TouchableOpacity>
+          </Animated.View>
         </View>
 
         <View style={styles.buttonsSection}>
@@ -97,6 +161,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 5
+  },
+  flipCard: {
+    backfaceVisibility: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  flipCardBack: {
+    position: 'absolute'
   },
   buttonsSection: {
 
