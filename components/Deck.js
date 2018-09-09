@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native
 import { gray, white, black } from '../utils/colors';
 import { FontAwesome } from '@expo/vector-icons'
 import { connect } from 'react-redux'
+import { AppLoading } from 'expo'
 
 class Deck extends Component {
   state = {
@@ -13,29 +14,31 @@ class Deck extends Component {
     const { deckId } = navigation.state.params
 
     return {
-      title: `Deck ID - ${deckId}`
+      title: `Deck - ${deckId}`
     }
   }
 
   componentDidMount() {
-    console.log('THIS PROPS ', this.props)
+    // console.log('THIS PROPS ', this.props)
+    const { deck } = this.props
+
+    this.setState({
+      deck
+    })
   }
 
   render() {
+    const { deck } = this.state
+    // console.log('DECK =====> ', deck)
+    if (Object.keys(deck).length === 0 && deck.constructor === Object) {
+      return <AppLoading />
+    }
+
     return (
       <View style={styles.container}>
-        {/* <View style={styles.header}>
-        <FontAwesome 
-          name='arrow-left' 
-          color={ white } 
-          size={30} 
-          style={{ marginLeft: 15, marginRight: 15 }} 
-        />
-        <Text style={{ color: white, fontSize: 20 }}>udacicards</Text>
-      </View> */}
         <View style={styles.deckSection}>
-          <Text style={{ fontSize: 40 }}>Deck ID - {this.props.navigation.state.params.deckId}</Text>
-          <Text style={{ fontSize: 25, color: gray }}>3 cards</Text>
+          <Text style={{ fontSize: 40 }}>{deck.title}</Text>
+          <Text style={{ fontSize: 25, color: gray }}>{deck.questions.length} cards</Text>
         </View>
         <View style={styles.buttonsView}>
           <TouchableOpacity
@@ -107,7 +110,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state, { navigation }) {
   const { deckId } = navigation.state.params
-  console.log('mapStateToProps --> deckId --> ', deckId)
+  // console.log('mapStateToProps --> deckId --> ', deckId)
   return {
     deckId,
     deck: state[deckId]
