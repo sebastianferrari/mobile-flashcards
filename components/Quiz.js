@@ -5,7 +5,8 @@ import { red, green, white } from '../utils/colors'
 class Quiz extends Component {
   state = {
     questions: [],
-    currentIndex: 0
+    currentIndex: 0,
+    showingQuestion: true
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -51,6 +52,13 @@ class Quiz extends Component {
   }
 
   flipCard() {
+    // console.log('flipCard pressed!')
+
+    const { showingQuestion } = this.state
+    this.setState({
+      showingQuestion: !showingQuestion
+    })
+
     if (this.value >= 90) {
       Animated.spring(this.animatedValue, {
         toValue: 0,
@@ -79,28 +87,37 @@ class Quiz extends Component {
       ]
     }
 
-    const { questions } = this.state
-    console.log(questions)
+    const { questions, currentIndex } = this.state
+    //console.log(questions)
+
+    const { question, answer } = questions[currentIndex]
+    // console.log(question)
+    // console.log(answer)
 
     return (
       <View style={styles.container}>
         <View style={styles.orderSection}>
-          <Text style={{ fontSize: 20 }}>{this.state.currentIndex} / {questions.length}</Text>
+          <Text style={{ fontSize: 20 }}>{currentIndex} / {questions.length}</Text>
         </View>
 
         <View style={styles.contentSection}>
-          <Animated.View style={[
-            styles.flipCard, 
-            frontAnimatedStyle, 
-            Platform.OS === 'ios' ? {} : { opacity: this.frontOpacity }]}>
+          <Animated.View 
+            style={[
+              styles.flipCard, 
+              frontAnimatedStyle, 
+              Platform.OS === 'ios' ? {} : { opacity: this.frontOpacity },
+              this.state.showingQuestion ? { zIndex: 1 } : { zIndex: 0 }]}>
 
             <Text style={{
               fontSize: 50,
               textAlign: 'center'
-            }}>Does React Native work with Android?</Text>
+            }}>
+              {question}
+            </Text>
             <TouchableOpacity
               style={{ marginTop: 10 }}
               onPress={() => this.flipCard()}
+              disabled={!this.state.showingQuestion}
             >
               <Text style={{ fontSize: 18, color: red, fontWeight: 'bold' }}>Answer</Text>
             </TouchableOpacity>
@@ -110,15 +127,19 @@ class Quiz extends Component {
             styles.flipCard, 
             styles.flipCardBack, 
             backAnimatedStyle, 
-            Platform.OS === 'ios' ? {} : { opacity: this.backOpacity }]}>
+            Platform.OS === 'ios' ? {} : { opacity: this.backOpacity },
+            !this.state.showingQuestion ? { zIndex: 1 } : { zIndex: 0 }]}>
 
             <Text style={{
               fontSize: 50,
               textAlign: 'center'
-            }}>Yes!</Text>
+            }}>
+              {answer}
+            </Text>
             <TouchableOpacity
               style={{ marginTop: 10 }}
               onPress={() => this.flipCard()}
+              disabled={this.state.showingQuestion}
             >
               <Text style={{ fontSize: 18, color: red, fontWeight: 'bold' }}>Question</Text>
             </TouchableOpacity>
@@ -172,6 +193,14 @@ const styles = StyleSheet.create({
   },
   buttonsSection: {
 
+  },
+  questionText: {
+    fontSize: 50,
+    textAlign: 'center'
+  },
+  answerText: {
+    fontSize: 50,
+    textAlign: 'center'
   },
   correctBtn: {
     backgroundColor: green,
