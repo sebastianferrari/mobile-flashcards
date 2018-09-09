@@ -14,17 +14,22 @@ class Deck extends Component {
     const { deckId } = navigation.state.params
 
     return {
-      title: `Deck - ${deckId}`
+      // title: `Deck - ${deckId}`
+      title: 'Deck'
     }
   }
 
   componentDidMount() {
     // console.log('THIS PROPS ', this.props)
     const { deck } = this.props
-
+    console.log('DECK ======> ', deck)
     this.setState({
       deck
     })
+  }
+
+  shouldComponentUpdate() {
+    return true
   }
 
   render() {
@@ -43,7 +48,8 @@ class Deck extends Component {
         <View style={styles.buttonsView}>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate(
-              'NewCard'
+              'NewCard',
+              { deckId: deck.title }
             )}
             style={styles.addCardBtn}
           >

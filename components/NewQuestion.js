@@ -1,18 +1,36 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, Platform, TouchableOpacity } from 'react-native'
 import { gray, black, white, red } from '../utils/colors'
+import { addCard } from '../actions'
+import { connect } from 'react-redux'
+import { addCardToDeck } from '../utils/api'
 
 class NewQuestion extends Component {
   state = {
+    deckId: '',
     question: '',
     answer: '',
     invalidQuestion: false,
     invalidAnswer: false
   }
 
+  static navigationOptions = ({ navigation }) => {
+    const { deckId } = navigation.state.params
+
+    return {
+      title: deckId
+    }
+  }
+
+  componentDidMount() {
+    const { deckId } = this.props
+
+    this.setState({ deckId })
+  }
+
   addQuestion = () => {
     // console.log('Adding question...')
-    const { question, answer } = this.state
+    const { deckId, question, answer } = this.state
 
     // Validate first
     if (question === '' || answer === '') {
@@ -34,11 +52,16 @@ class NewQuestion extends Component {
       invalidQuestion: false
     })
 
-    
+    const card = { question, answer }
 
+    this.props.dispatch(addCard({ deckId, card }))
 
+    this.setState({ question: '', answer: '' })
 
-    // route
+    this.props.navigation.goBack()
+
+    const title = deckId
+    addCardToDeck(title, card)
   }
 
   render() {
@@ -103,4 +126,12 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewQuestion
+function mapStateToProps(state, { navigation }) {
+  const { deckId } = navigation.state.params
+
+  return {
+    deckId
+  }
+}
+
+export default connect(mapStateToProps)(NewQuestion)

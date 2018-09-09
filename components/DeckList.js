@@ -49,8 +49,13 @@ class DeckList extends Component {
       })))
   }
 
+  // shouldComponentUpdate(nextProps) {
+  //   console.log('shoudlComponentUpdate ==> decks ===> ', this.props.decks)
+  //   return true
+  // }
+
   renderItem = ({ item }) => {
-    console.log('Render Item section', item)
+    //console.log('Render Item section', item)
     // console.log(item.cards.length)
 
     return (
@@ -73,9 +78,9 @@ class DeckList extends Component {
 
     // console.log('---> ', Object.keys(decks))
 
-    // console.log('DECKS', JSON.stringify(decks))
+    console.log('DECKS ===> ', decks)
     let arr = Array.from(values(decks))
-    // console.log({arr})
+    console.log({arr})
  
     return (
       <View style={styles.container}>
@@ -100,6 +105,8 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(decks) {
+  console.log('mapStateToProps ===> DECKS ===> ', decks)
+
   return {
     decks
   }

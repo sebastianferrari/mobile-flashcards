@@ -15,7 +15,6 @@ class NewDeck extends Component {
     const key = this.state.title
     const deck = { title: key, questions: [] }
 
-    // save deck in storage and then navigate to deck detail
     this.props.dispatch(addDeck({ [key]: deck }))
 
     this.setState({ title: '' })
