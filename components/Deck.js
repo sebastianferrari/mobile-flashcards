@@ -22,14 +22,21 @@ class Deck extends Component {
   componentDidMount() {
     // console.log('THIS PROPS ', this.props)
     const { deck } = this.props
-    console.log('DECK ======> ', deck)
+    // console.log('DECK ======> ', deck)
     this.setState({
       deck
     })
   }
 
-  shouldComponentUpdate() {
-    return true
+  shouldComponentUpdate(nextProps) {
+    // console.log('PASSING THROUGH shoudlComponentUpdate')
+    const { deck } = nextProps
+    // console.log({deck})
+    if (this.state.deck !== deck) {
+      this.setState({ deck })
+      return true
+    }
+    return false
   }
 
   render() {

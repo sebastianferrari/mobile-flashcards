@@ -78,9 +78,9 @@ class DeckList extends Component {
 
     // console.log('---> ', Object.keys(decks))
 
-    console.log('DECKS ===> ', decks)
+    // console.log('DECKS ===> ', decks)
     let arr = Array.from(values(decks))
-    console.log({arr})
+    // console.log({arr})
  
     return (
       <View style={styles.container}>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(decks) {
-  console.log('mapStateToProps ===> DECKS ===> ', decks)
+  // console.log('mapStateToProps ===> DECKS ===> ', decks)
 
   return {
     decks

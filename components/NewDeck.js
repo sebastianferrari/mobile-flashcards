@@ -11,7 +11,7 @@ class NewDeck extends Component {
   }
 
   saveDeck = () => {
-    console.log(`Saving the new deck with title: ${this.state.title}`)
+    // console.log(`Saving the new deck with title: ${this.state.title}`)
     const key = this.state.title
     const deck = { title: key, questions: [] }
 

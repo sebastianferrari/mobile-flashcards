@@ -1,7 +1,7 @@
 import { RECEIVE_DECKS, ADD_DECK, ADD_CARD } from '../actions'
 
 function decks(state = {}, action) {
-  console.log({action})
+  // console.log({action})
   switch (action.type) {
     case RECEIVE_DECKS:
       return {
@@ -17,8 +17,8 @@ function decks(state = {}, action) {
 
     case ADD_CARD: {
       const { deckId, card} = action
-      console.log('FROM REDUCER ===> deckId ---> ', deckId)
-      console.log('FROM REDUCER ===> card ---> ', card)
+      // console.log('FROM REDUCER ===> deckId ---> ', deckId)
+      // console.log('FROM REDUCER ===> card ---> ', card)
       return {
         ...state,
         [deckId]: {
