@@ -3,19 +3,38 @@ import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native
 import { red, green, white } from '../utils/colors'
 
 class Quiz extends Component {
+  state = {
+    questions: [],
+
+  }
+
   static navigationOptions = ({ navigation }) => {
-    const { deckId } = navigation.state.params
+    const { deck } = navigation.state.params
 
     return {
-      title: deckId
+      title: deck.title
     }
   }
 
+  componentDidMount() {
+    // get all the deck questions
+
+  }
+
+  componentWillMount() {
+     const { questions } = this.props.navigation.state.params.deck
+   
+     this.setState({questions})
+  }
+
   render() {
+    const { questions } = this.state
+    console.log(questions)
+
     return (
       <View style={styles.container}>
         <View style={styles.orderSection}>
-          <Text style={{ fontSize: 20 }}>2 / 2</Text>
+          <Text style={{ fontSize: 20 }}>2 / {questions.length}</Text>
         </View>
 
         {/* <View style={styles.contentSection}>
@@ -101,5 +120,7 @@ const styles = StyleSheet.create({
     marginBottom: 30
   }
 })
+
+
 
 export default Quiz
