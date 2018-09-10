@@ -6,7 +6,7 @@ import DeckList from './components/DeckList'
 import Quiz from './components/Quiz'
 import NewDeck from './components/NewDeck'
 import { Constants } from 'expo'
-import { white, purple, darkPrimaryColor } from './utils/colors'
+import { textPrimaryColor, darkPrimaryColor } from './utils/colors'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Provider } from 'react-redux'
@@ -41,10 +41,10 @@ const Tabs = createBottomTabNavigator({
     header: null
   },
   tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? darkPrimaryColor : white,
+    activeTintColor: Platform.OS === 'ios' ? darkPrimaryColor : textPrimaryColor,
     style: {
       height: 56,
-      backgroundColor: Platform.OS === 'ios' ? white : darkPrimaryColor,
+      backgroundColor: Platform.OS === 'ios' ? textPrimaryColor : darkPrimaryColor,
       shadowColor: 'rgba(0, 0, 0, 0.24)',
       shadowOffset: {
         width: 0,
@@ -63,7 +63,7 @@ const MainNavigator = createStackNavigator({
   DeckDetail: {
     screen: Deck,
     navigationOptions: {
-      headerTintColor: white,
+      headerTintColor: textPrimaryColor,
       headerStyle: {
         backgroundColor: darkPrimaryColor
       }
@@ -72,7 +72,7 @@ const MainNavigator = createStackNavigator({
   NewCard: {
     screen: NewQuestion,
     navigationOptions: {
-      headerTintColor: white,
+      headerTintColor: textPrimaryColor,
       headerStyle: {
         backgroundColor: darkPrimaryColor
       }
@@ -81,7 +81,7 @@ const MainNavigator = createStackNavigator({
   Quiz: {
     screen: Quiz,
     navigationOptions: {
-      headerTintColor: white,
+      headerTintColor: textPrimaryColor,
       headerStyle: {
         backgroundColor: darkPrimaryColor
       }

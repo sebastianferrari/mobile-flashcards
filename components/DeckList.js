@@ -6,7 +6,6 @@ import {
   FlatList,
   TouchableOpacity
 } from 'react-native'
-import { gray } from '../utils/colors'
 import DeckPreview from './DeckPreview'
 import { connect } from 'react-redux'
 import { fetchDummyDecks } from '../utils/api';
@@ -16,23 +15,6 @@ import { values } from '../utils/helpers'
 
 class DeckList extends Component {
   state = {
-    // decks: [
-    //   {
-    //     key: '1',
-    //     name: "udacicards",
-    //     cards: [{ key: "card1" }, { key: "card2" }, { key: "card3" }]
-    //   },
-    //   {
-    //     key: '2',
-    //     name: "new deck",
-    //     cards: []
-    //   },
-    //   {
-    //     key: '3',
-    //     name: "New Deck 2",
-    //     cards: []
-    //   }
-    // ],
     ready: false
   }
 
@@ -48,11 +30,6 @@ class DeckList extends Component {
         ready: true
       })))
   }
-
-  // shouldComponentUpdate(nextProps) {
-  //   console.log('shoudlComponentUpdate ==> decks ===> ', this.props.decks)
-  //   return true
-  // }
 
   renderItem = ({ item }) => {
     //console.log('Render Item section', item)

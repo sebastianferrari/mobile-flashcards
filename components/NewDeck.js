@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
-import { black, white } from '../utils/colors'
+import { primaryTextColor, textPrimaryColor } from '../utils/colors'
 import { saveDeckTitle } from '../utils/api'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
@@ -48,7 +48,7 @@ class NewDeck extends Component {
           // )}
           onPress={this.saveDeck}
         >
-          <Text style={{ color: white, fontSize: 18 }}>Submit</Text>
+          <Text style={{ color: textPrimaryColor, fontSize: 18 }}>Submit</Text>
         </TouchableOpacity>
       </View>
     )
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   submitBtn: {
-    backgroundColor: black,
+    backgroundColor: primaryTextColor,
     width: 150,
     height: 50,
     borderRadius: 5,

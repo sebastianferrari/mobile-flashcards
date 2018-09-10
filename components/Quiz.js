@@ -9,7 +9,7 @@ import {
   Modal,
   TouchableHighlight
 } from 'react-native'
-import { red, green, white, accentColor } from '../utils/colors'
+import { red, green, textPrimaryColor, accentColor } from '../utils/colors'
 
 class Quiz extends Component {
   state = {
@@ -232,13 +232,13 @@ class Quiz extends Component {
             style={styles.correctBtn}
             onPress={() => this.onCorrect()}
           >
-            <Text style={{ color: white, fontSize: 18 }}>Correct</Text>
+            <Text style={{ color: textPrimaryColor, fontSize: 18 }}>Correct</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.incorrectBtn}
             onPress={() => this.onIncorrect()}
           >
-            <Text style={{ color: white, fontSize: 18 }}>Incorrect</Text>
+            <Text style={{ color: textPrimaryColor, fontSize: 18 }}>Incorrect</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     width: 200
   },
   modalBtnText: {
-    color: white,
+    color: textPrimaryColor,
     fontSize: 20
   }
 })

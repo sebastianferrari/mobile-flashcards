@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native'
-import { gray, white, black } from '../utils/colors';
+import { secondaryTextColor, textPrimaryColor, primaryTextColor } from '../utils/colors';
 import { FontAwesome } from '@expo/vector-icons'
 import { connect } from 'react-redux'
 import { AppLoading } from 'expo'
@@ -50,7 +50,7 @@ class Deck extends Component {
       <View style={styles.container}>
         <View style={styles.deckSection}>
           <Text style={{ fontSize: 40 }}>{deck.title}</Text>
-          <Text style={{ fontSize: 25, color: gray }}>{deck.questions.length} cards</Text>
+          <Text style={{ fontSize: 25, color: secondaryTextColor }}>{deck.questions.length} cards</Text>
         </View>
         <View style={styles.buttonsView}>
           <TouchableOpacity
@@ -69,7 +69,7 @@ class Deck extends Component {
             )}
             style={styles.startQuizBtn}
           >
-            <Text style={{ color: white, fontSize: 18 }}>Start Quiz</Text>
+            <Text style={{ color: textPrimaryColor, fontSize: 18 }}>Start Quiz</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    backgroundColor: black,
+    backgroundColor: primaryTextColor,
     height: 50,
     marginTop: Platform.OS === 'ios' ? 30 : 2,
     justifyContent: 'center',
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     bottom: 0
   },
   addCardBtn: {
-    backgroundColor: white,
+    backgroundColor: textPrimaryColor,
     borderWidth: 1,
     borderRadius: 5,
     width: 200,
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   startQuizBtn: {
-    backgroundColor: black,
+    backgroundColor: primaryTextColor,
     borderWidth: 1,
     borderRadius: 5,
     width: 200,

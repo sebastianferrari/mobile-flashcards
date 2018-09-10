@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, Platform, TouchableOpacity } from 'react-native'
-import { gray, black, white, red } from '../utils/colors'
+import { primaryTextColor, textPrimaryColor, red } from '../utils/colors'
 import { addCard } from '../actions'
 import { connect } from 'react-redux'
 import { addCardToDeck } from '../utils/api'
@@ -87,7 +87,7 @@ class NewQuestion extends Component {
           onPress={this.addQuestion}
           style={styles.submitBtn}
         >
-          <Text style={{ color: white, fontSize: 18 }}>Submit</Text>
+          <Text style={{ color: textPrimaryColor, fontSize: 18 }}>Submit</Text>
         </TouchableOpacity>
       </View>
     )
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   submitBtn: {
-    backgroundColor: black,
+    backgroundColor: primaryTextColor,
     width: 150,
     height: 50,
     borderRadius: 5,

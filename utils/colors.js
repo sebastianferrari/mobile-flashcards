@@ -1,15 +1,6 @@
-export const purple = '#292477'
-export const gray = '#757575'
-export const white = '#fff'
 export const red = 'rgb(196,57,42)'
-export const orange = '#f26f28'
-export const blue = '#4e4cb8'
-export const lightPurp = '#7c53c3'
-export const pink = '#b93fb3'
-export const black = '#000'
 export const green = 'rgb(55,125,34)'
-export const yellow = 'rgb(253,234,96)'
-
+// Color Palette https://www.materialpalette.com/indigo/green
 export const darkPrimaryColor    = '#303F9F'
 export const defaultPrimaryColor = '#3F51B5'
 export const lightPrimaryColor   = '#C5CAE9'
