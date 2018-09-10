@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Platform, Animated } from 'react-native'
-import { red, green, white } from '../utils/colors'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  Animated,
+  Modal,
+  TouchableHighlight
+} from 'react-native'
+import { red, green, white, accentColor } from '../utils/colors'
 
 class Quiz extends Component {
   state = {
     questions: [],
     currentIndex: 0,
     showingQuestion: true,
-    correctAnswersQty: 0
+    correctAnswersQty: 0,
+    modalVisible: false
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -16,11 +26,6 @@ class Quiz extends Component {
     return {
       title: deck.title
     }
-  }
-
-  componentDidMount() {
-    // get all the deck questions
-
   }
 
   componentWillMount() {
@@ -86,13 +91,15 @@ class Quiz extends Component {
     const newQty = this.state.correctAnswersQty + 1
     const newIndex = this.state.currentIndex + 1
 
+    this.setState({ correctAnswersQty: newQty })
+
     if (this.checkIfLatestDeckQuestion(newIndex)) {
       // show result before navigate back
+      this.setModalVisible(true)
 
-      this.props.navigation.goBack()
+      //this.props.navigation.goBack()
     } else {
       this.setState({
-        correctAnswersQty: newQty,
         currentIndex: newIndex
       })
     }
@@ -103,11 +110,22 @@ class Quiz extends Component {
 
     if (this.checkIfLatestDeckQuestion(newIndex)) {
       // show result before navigate back
-      
-      this.props.navigation.goBack()
+      this.setModalVisible(true)
+
+      // this.props.navigation.goBack()
     } else {
       this.setState({ currentIndex: newIndex })
     }
+  }
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible })
+  }
+
+  calcPercentaje() {
+    // console.log(this.state.correctAnswersQty)
+    // console.log(this.state.questions.length)
+    return this.state.correctAnswersQty * 100 / this.state.questions.length
   }
 
   render() {
@@ -132,6 +150,32 @@ class Quiz extends Component {
 
     return (
       <View style={styles.container}>
+
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            alert('Modal has been closed.');
+          }}>
+          <View style={styles.modal}>
+            <Text style={styles.modalText}>
+              {this.state.modalVisible ? this.calcPercentaje() : 0}% Correct
+              </Text>
+
+            <TouchableHighlight
+              style={styles.modalBtn}
+              onPress={() => {
+                this.setModalVisible(!this.state.modalVisible)
+                this.props.navigation.goBack()
+              }}>
+              <Text style={styles.modalBtnText}>
+                Got it!
+              </Text>
+            </TouchableHighlight>
+          </View>
+        </Modal>
+
         <View style={styles.orderSection}>
           <Text style={{ fontSize: 20 }}>{currentIndex + 1} / {questions.length}</Text>
         </View>
@@ -182,7 +226,7 @@ class Quiz extends Component {
           </Animated.View>
         </View>
 
-        <View style={styles.buttonsSection}>
+        <View>
           <TouchableOpacity
             style={styles.correctBtn}
             onPress={() => this.onCorrect()}
@@ -229,9 +273,6 @@ const styles = StyleSheet.create({
   flipCardBack: {
     position: 'absolute'
   },
-  buttonsSection: {
-
-  },
   correctBtn: {
     backgroundColor: green,
     width: 200,
@@ -249,6 +290,27 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 30
+  },
+  modal: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexGrow: 1
+  },
+  modalText: {
+    fontSize: 30
+  },
+  modalBtn: {
+    backgroundColor: accentColor,
+    borderRadius: 5,
+    marginTop: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: 200
+  },
+  modalBtnText: {
+    color: white,
+    fontSize: 20
   }
 })
 
