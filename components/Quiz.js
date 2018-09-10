@@ -155,9 +155,10 @@ class Quiz extends Component {
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
-          onRequestClose={() => {
-            alert('Modal has been closed.');
-          }}>
+          // onRequestClose={() => {
+          //   alert('Modal has been closed.');
+          // }}
+          >
           <View style={styles.modal}>
             <Text style={styles.modalText}>
               {this.state.modalVisible ? this.calcPercentaje() : 0}% Correct
@@ -189,7 +190,7 @@ class Quiz extends Component {
               this.state.showingQuestion ? { zIndex: 1 } : { zIndex: 0 }]}>
 
             <Text style={{
-              fontSize: 50,
+              fontSize: answer.length < 50 ? 50 : 35,
               textAlign: 'center'
             }}>
               {question}
@@ -211,7 +212,7 @@ class Quiz extends Component {
             !this.state.showingQuestion ? { zIndex: 1 } : { zIndex: 0 }]}>
 
             <Text style={{
-              fontSize: 50,
+              fontSize: answer.length < 50 ? 50 : 35,
               textAlign: 'center'
             }}>
               {answer}
