@@ -102,6 +102,10 @@ class Quiz extends Component {
       this.setState({
         currentIndex: newIndex
       })
+
+      if (!this.state.showingQuestion) {
+        this.flipCard()
+      }
     }
   }
 
@@ -114,7 +118,13 @@ class Quiz extends Component {
 
       // this.props.navigation.goBack()
     } else {
-      this.setState({ currentIndex: newIndex })
+      this.setState({ 
+        currentIndex: newIndex
+      })
+
+      if (!this.state.showingQuestion) {
+        this.flipCard()
+      }
     }
   }
 
