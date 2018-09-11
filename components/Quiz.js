@@ -10,6 +10,7 @@ import {
   TouchableHighlight
 } from 'react-native'
 import { red, green, textPrimaryColor, accentColor } from '../utils/colors'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 class Quiz extends Component {
   state = {
@@ -118,7 +119,7 @@ class Quiz extends Component {
 
       // this.props.navigation.goBack()
     } else {
-      this.setState({ 
+      this.setState({
         currentIndex: newIndex
       })
 
@@ -132,10 +133,16 @@ class Quiz extends Component {
     this.setState({ modalVisible: visible })
   }
 
+  clearAndSetNotification = () => {
+    // console.log('clearAndSetNotification')
+    clearLocalNotification()
+      .then(setLocalNotification)
+  }
+
   calcPercentaje() {
     // console.log(this.state.correctAnswersQty)
     // console.log(this.state.questions.length)
-    return this.state.correctAnswersQty * 100 / this.state.questions.length
+    return Math.round(this.state.correctAnswersQty * 100 / this.state.questions.length)
   }
 
   render() {
@@ -165,10 +172,11 @@ class Quiz extends Component {
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
-          // onRequestClose={() => {
-          //   alert('Modal has been closed.');
-          // }}
-          >
+          onRequestClose={() => {
+            console.log('Modal has been closed.');
+          }}
+          onShow={() => this.clearAndSetNotification()}
+        >
           <View style={styles.modal}>
             <Text style={styles.modalText}>
               {this.state.modalVisible ? this.calcPercentaje() : 0}% Correct
